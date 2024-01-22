@@ -1,0 +1,29 @@
+name: Apply Latest to Prod
+
+on:
+  workflow_dispatch: {}
+
+env:
+  SSH_KEY_PROD: ${{ secrets.SSH_KEY_PROD }}
+  SSH_HOST_PROD: ${{ secrets.SSH_HOST_PROD }}
+  SSH_USER_PROD: ${{ secrets.SSH_USER_PROD }}
+  SSH_SUDO_PROD: ${{ secrets.SSH_SUDO_PROD }}
+  ANSIBLE_VAULT_K_PROD: ${{ secrets.ANSIBLE_VAULT_K_PROD }}
+  SA_PROD: ${{ secrets.SA_PROD }}
+  BUCKET_PROD: ${{ secrets.BUCKET_PROD }}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+      - name: Prepare to run Ansible
+        run: . main/ci/scripts/prep.sh
+      - name: Execute Ansible playbook (PROD)
+        run: . main/ci/scripts/ansible-execute.sh PROD

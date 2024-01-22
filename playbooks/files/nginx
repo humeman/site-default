@@ -1,0 +1,8 @@
+server {
+        root /var/www/{{ name }}/active;
+
+        location / {
+                try_files $uri.html $uri $uri/ =404;
+        }
+        listen 80 default;
+}

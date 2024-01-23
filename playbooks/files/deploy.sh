@@ -14,7 +14,7 @@ mkdir -p "$DOCROOT/repo"
 chown -R www:www "$DOCROOT/repo"
 git clone https://{{ git_user }}:{{ git_pat }}@{{ git_repo }} "$DOCROOT/repo/$TIME"
 chown -R www:www "$DOCROOT/repo/$TIME"
-chmod -R 400 $DOCROOT/repo/$TIME
+chmod -R 550 $DOCROOT/repo/$TIME
 
 # Switch to current version
 old_ver=-1
@@ -28,7 +28,7 @@ if [ -L "$DOCROOT/active" ]; then
 fi
 ln -s "$DOCROOT/repo/$TIME/src" "$DOCROOT/active"
 chown -h www:www "$DOCROOT/active"
-chmod 500 $DOCROOT/repo/$TIME
+chmod 550 $DOCROOT/repo/$TIME
 
 if [ $old_ver -ne -1 ]; then
     rm -rf "$DOCROOT/repo/$old_ver"

@@ -3,7 +3,7 @@
     path: /var/www/{{ site_name }}
     owner: www
     group: www
-    mode: "0500"
+    mode: "0550"
     state: directory
   become: true
 
@@ -12,7 +12,7 @@
     path: /var/www/{{ site_name }}/repo
     owner: www
     group: www
-    mode: "0500"
+    mode: "0550"
     state: directory
   become: true
 

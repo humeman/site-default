@@ -2,6 +2,7 @@ server {
         root /var/www/{{ site_name }}/active;
 
         location / {
+                index index.html;
                 try_files $uri.html $uri $uri/ =404;
         }
         listen 80 default;

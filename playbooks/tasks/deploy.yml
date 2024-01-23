@@ -5,16 +5,16 @@
     mode: '0755'
   become: true
 
-- name: Add templated script {{ name }}.sh
+- name: Add templated script {{ site_name }}.sh
   ansible.builtin.template:
     src: ../files/deploy.sh
-    dest: /scripts/nginx-deploy/{{ name }}.sh
+    dest: /scripts/nginx-deploy/{{ site_name }}.sh
     owner: root
     group: root
     mode: '0700'
   become: true
   register: mysql_script
 
-- name: Execute templated script {{ name }}.sh
-  ansible.builtin.command: /bin/bash /scripts/nginx-deploy/{{ name }}.sh 
+- name: Execute templated script {{ site_name }}.sh
+  ansible.builtin.command: /bin/bash /scripts/nginx-deploy/{{ site_name }}.sh 
   become: true

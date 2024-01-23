@@ -1,6 +1,6 @@
 - name: Create webroot
   ansible.builtin.file:
-    path: /var/www/{{ name }}
+    path: /var/www/{{ site_name }}
     owner: www
     group: www
     mode: "0500"
@@ -9,7 +9,7 @@
 
 - name: Create repo directory
   ansible.builtin.file:
-    path: /var/www/{{ name }}/repo
+    path: /var/www/{{ site_name }}/repo
     owner: www
     group: www
     mode: "0500"
@@ -19,7 +19,7 @@
 - name: Create nginx site file
   ansible.builtin.template:
     src: ../files/nginx
-    dest: /etc/nginx/sites-available/{{ name }}
+    dest: /etc/nginx/sites-available/{{ site_name }}
     owner: root
     group: root
     mode: "0744"
@@ -28,14 +28,14 @@
 
 - name: Stat nginx site symlink
   ansible.builtin.stat: 
-    path: /etc/nginx/sites-enabled/{{ name }}
+    path: /etc/nginx/sites-enabled/{{ site_name }}
   become: true
   register: nginx_site_stat
 
 - name: Create symlink for nginx site
   ansible.builtin.file:
-    src: /etc/nginx/sites-available/{{ name }}
-    dest: /etc/nginx/sites-enabled/{{ name }}
+    src: /etc/nginx/sites-available/{{ site_name }}
+    dest: /etc/nginx/sites-enabled/{{ site_name }}
     owner: root
     group: root
     mode: "0744"
@@ -49,7 +49,7 @@
   when: nginx_site.changed
 
 - name: Restart nginx
-  ansible.builtin.systemd_service:
+  ansible.builtin.systemd:
     name: nginx.service
     state: restarted
     scope: system

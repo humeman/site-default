@@ -4,10 +4,7 @@
     - vars.yml
   tasks:
     - name: Set up Nginx
-      include_tasks: nginx.yml
-
-    - name: Set up systemd service
-      include_tasks: systemd.yml
+      include_tasks: tasks/nginx.yml
       
     - name: Deploy new version
-      include_tasks: deploy.yml
+      include_tasks: tasks/deploy.yml

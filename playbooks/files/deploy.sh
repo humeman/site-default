@@ -2,7 +2,7 @@
 
 set -e
 
-readonly NAME={{ name }}
+readonly NAME={{ site_name }}
 
 readonly DOCROOT="/var/www/$NAME"
 readonly TIME=$(date +%s)
@@ -12,7 +12,7 @@ readonly GIT_PAT={{ git_pat }}
 
 mkdir -p /var/www/$NAME/repo
 chown -R www:www /var/www/$NAME/repo
-git clone https://{{ git_user }}:{{ git_pat }}@github.com/{{ git_user }}/{{ repo }} "/var/www/$NAME/repo/$TIME"
+git clone https://{{ git_user }}:{{ git_pat }}@{{ git_repo }} "/var/www/$NAME/repo/$TIME"
 chown -R www:www "/var/www/$NAME/repo/$TIME"
 chmod -R 400 /var/www/$NAME/repo/$TIME
 
@@ -23,8 +23,10 @@ if [ -f /var/www/$NAME/repo/version ]; then
 fi
 
 echo $TIME > "/var/www/$NAME/repo/version"
-rm "/var/www/$NAME/active"
-ln -s "/var/www/$NAME/repo/$TIME" "/var/www/$NAME/active"
+if [ -f "/var/www/$NAME/active" ]; then
+    rm "/var/www/$NAME/active"
+fi
+ln -s "/var/www/$NAME/repo/$TIME/src" "/var/www/$NAME/active"
 chown -h www:www "/var/www/$NAME/active"
 chmod 500 /var/www/$NAME/repo/$TIME
 

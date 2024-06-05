@@ -8,9 +8,7 @@
 - name: Create repo directory
   ansible.builtin.file:
     path: /var/www/{{ site_name }}/repo
-    owner: www
-    group: www
-    mode: "0550"
+    mode: "0755"
     state: directory
   become: true
 

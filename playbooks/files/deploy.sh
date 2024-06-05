@@ -11,9 +11,9 @@ readonly GIT_USER={{ git_user }}
 readonly GIT_PAT={{ git_pat }}
 
 mkdir -p "$DOCROOT/repo"
-chown -R www:www "$DOCROOT/repo"
+chown -R www-data:www-data "$DOCROOT/repo"
 git clone https://{{ git_user }}:{{ git_pat }}@{{ git_repo }} "$DOCROOT/repo/$TIME"
-chown -R www:www "$DOCROOT/repo/$TIME"
+chown -R www-data:www-data "$DOCROOT/repo/$TIME"
 chmod -R 550 $DOCROOT/repo/$TIME
 
 # Switch to current version

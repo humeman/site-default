@@ -27,7 +27,7 @@ if [ -L "$DOCROOT/active" ]; then
     rm "$DOCROOT/active"
 fi
 ln -s "$DOCROOT/repo/$TIME/src" "$DOCROOT/active"
-chown -h www:www "$DOCROOT/active"
+chown -h www-data:www-data "$DOCROOT/active"
 chmod 550 $DOCROOT/repo/$TIME
 
 if [ $old_ver -ne -1 ]; then
